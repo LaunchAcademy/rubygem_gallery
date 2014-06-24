@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-feature "user adds a new rubygem", %Q{
+feature "user adds a new ruby gem", %Q{
   As a user
   I want to add a verified gem
   So it can be rated and commented on
 } do
 
-# I need to be signed in to do this.
+# TODO I need to be signed in to do this.
 # I must provide gem name and description.
 # I need to see a success message if submission is successful.
 # I need to see an error message if submission is unsuccessful.

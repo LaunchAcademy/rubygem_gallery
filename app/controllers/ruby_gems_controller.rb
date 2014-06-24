@@ -23,6 +23,31 @@ class RubyGemsController < ApplicationController
     end
   end
 
+  def edit
+    @ruby_gem = RubyGem.find(params[:id])
+  end
+
+  def update
+    @ruby_gem = RubyGem.find(params[:id])
+    if @ruby_gem.update(ruby_gem_params)
+      flash[:notice] = "Success"
+      redirect_to ruby_gem_path(@ruby_gem.id)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @ruby_gem = RubyGem.find(params[:id])
+    if @ruby_gem.destroy
+      flash[:notice] = "Deleted"
+      redirect_to ruby_gems_path
+    else
+      flash[:notice] = "Error"
+      render :show
+    end
+  end
+
   private
 
   def ruby_gem_params
