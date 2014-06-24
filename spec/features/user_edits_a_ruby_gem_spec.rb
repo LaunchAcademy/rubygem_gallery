@@ -25,4 +25,17 @@ feature "user can edit their ruby gem", %Q{
     expect(page).to have_content('Capybara')
     expect(page).to have_content('testing')
   end
+
+  scenario 'user sees error message if fields empty' do
+    rubygem = RubyGem.create!(name: 'Pry', description: 'debugger')
+
+    visit edit_ruby_gem_path(rubygem.id)
+    fill_in 'Name', with: ' '
+    fill_in 'Description', with: ' '
+    click_on "Update Ruby gem"
+
+    expect(page).to_not have_content('Success')
+    expect(page).to have_content("can't be blank")
+  end
+
 end
