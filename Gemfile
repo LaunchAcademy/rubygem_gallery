@@ -45,3 +45,5 @@ group :development, :test do
   gem 'pry-rails'
   gem 'capybara'
 end
+
+gem 'simple_form'
