@@ -3,6 +3,12 @@ class RubyGemsController < ApplicationController
     @ruby_gems = RubyGem.all
   end
 
+  def show
+    @ruby_gem = RubyGem.find(params[:id])
+    @review = Review.new
+    @reviews = Review.all.where("ruby_gem_id = ?", params[:id])
+  end
+
   def new
     @ruby_gem = RubyGem.new
   end
