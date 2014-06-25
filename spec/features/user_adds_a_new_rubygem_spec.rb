@@ -12,17 +12,17 @@ feature "user adds a new ruby gem", %Q{
 # I need to see an error message if submission is unsuccessful.
 
   scenario 'user adds a new ruby gem' do
-    rubygem = RubyGem.new(name: 'Pry', description: 'debugger')
+    rubygem = FactoryGirl.create(:ruby_gem)
 
     visit new_ruby_gem_path
 
-    fill_in 'Name', with: 'Pry'
-    fill_in 'Description', with: 'debugger'
+    fill_in 'Name', with: rubygem.name
+    fill_in 'Description', with: rubygem.description
     click_on "Create Ruby gem"
 
     expect(page).to have_content('Success')
-    expect(page).to have_content('Pry')
-    expect(page).to have_content('debugger')
+    expect(page).to have_content rubygem.name
+    expect(page).to have_content rubygem.description
   end
 
   scenario 'user enters incomplete ruby gem info' do

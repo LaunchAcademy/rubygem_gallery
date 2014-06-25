@@ -6,7 +6,7 @@ class RubyGemsController < ApplicationController
   def show
     @ruby_gem = RubyGem.find(params[:id])
     @review = Review.new
-    @reviews = Review.all.where("ruby_gem_id = ?", params[:id])
+    @reviews = @ruby_gem.reviews #Review.all.where("ruby_gem_id = ?", params[:id])
   end
 
   def new
@@ -19,6 +19,7 @@ class RubyGemsController < ApplicationController
       flash[:notice] = "Success"
       redirect_to ruby_gems_path
     else
+      flash.now[:notice] = "Error"
       render :new
     end
   end
@@ -33,6 +34,7 @@ class RubyGemsController < ApplicationController
       flash[:notice] = "Success"
       redirect_to ruby_gem_path(@ruby_gem.id)
     else
+      flash.now[:notice] = "Error"
       render :edit
     end
   end

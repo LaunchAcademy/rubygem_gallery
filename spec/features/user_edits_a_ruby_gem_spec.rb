@@ -13,21 +13,22 @@ feature "user can edit their ruby gem", %Q{
 # I need to see an error message if submission is unsuccessful.
 
   scenario 'user edits a existing ruby gem' do
-    rubygem = RubyGem.create!(name: 'Pry', description: 'debugger')
+    rubygem = FactoryGirl.create(:ruby_gem)
 
     visit edit_ruby_gem_path(rubygem.id)
 
-    fill_in 'Name', with: 'Capybara'
-    fill_in 'Description', with: 'testing'
+    fill_in 'Name', with: rubygem.name
+    fill_in 'Description', with: rubygem.description
     click_on "Update Ruby gem"
 
     expect(page).to have_content('Success')
-    expect(page).to have_content('Capybara')
-    expect(page).to have_content('testing')
+    expect(page).to have_content rubygem.name
+    expect(page).to have_content rubygem.description
+
   end
 
   scenario 'user sees error message if fields empty' do
-    rubygem = RubyGem.create!(name: 'Pry', description: 'debugger')
+    rubygem = FactoryGirl.create(:ruby_gem)
 
     visit edit_ruby_gem_path(rubygem.id)
     fill_in 'Name', with: ' '

@@ -13,8 +13,8 @@ feature "user deletes a ruby gem", %Q{
 # I need to see a success message if submission is successful.
 # I need to see an error message if submission is unsuccessful.
 
-  scenario 'user delets ruby gem' do
-    rubygem = RubyGem.create!(name: 'Pry', description: 'debugger')
+  scenario 'user deletes ruby gem' do
+    rubygem = FactoryGirl.create(:ruby_gem)
 
     visit ruby_gem_path(rubygem)
 

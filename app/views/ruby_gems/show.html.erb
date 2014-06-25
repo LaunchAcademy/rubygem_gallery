@@ -1,6 +1,6 @@
 <%= @ruby_gem.name %>
 <%= @ruby_gem.description %>
-<%= link_to "Delete", ruby_gem_path, method: :delete %>
+<%= link_to "Delete", ruby_gem_path(@ruby_gem), method: :delete %>
 
 <% @reviews.each do |review| %>
   <%= review.rating %>
