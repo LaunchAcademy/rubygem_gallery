@@ -11,8 +11,8 @@ feature 'sign up', %Q{
 
     visit '/'
     click_link 'Sign Up'
-    fill_in 'First Name', with: user.first_name #'Jon'
-    fill_in 'Last Name', with: user.last_name #'Smith'
+    fill_in 'First Name', with: user.first_name
+    fill_in 'Last Name', with: user.last_name
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     fill_in 'Password Confirmation', with: user.password
@@ -28,15 +28,14 @@ feature 'sign up', %Q{
 
     visit '/'
     click_link 'Sign Up'
-    fill_in 'First Name', with: user.first_name #'Jon'
-    fill_in 'Last Name', with: user.last_name #'Smith'
+    fill_in 'First Name', with: user.first_name
+    fill_in 'Last Name', with: user.last_name
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     fill_in 'Password Confirmation', with: "drowssap"
     click_button 'Sign Up'
 
-    expect(page).to have_content("doesn't match ")
-
+    expect(page).to have_content("confirmation doesn't match")
 
   end
 
@@ -52,8 +51,5 @@ feature 'sign up', %Q{
 
     expect(page).to have_content("can't be blank")
   end
-
-
-
 
 end
