@@ -46,3 +46,5 @@ group :development, :test do
   gem 'capybara'
   gem 'valid_attribute'
 end
+
+gem 'simple_form'

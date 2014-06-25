@@ -7,6 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<p><%= notice %></p>
+<%= alert %>
 <nav>
   <ul>
     <%- if user_signed_in? -%>
@@ -17,9 +20,6 @@
     <%- end -%>
   </ul>
 </nav>
-
-<%= notice %>
-<%= alert %>
 
 <%= yield %>
 
