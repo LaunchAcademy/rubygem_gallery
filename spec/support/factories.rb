@@ -1,6 +1,3 @@
-
-
-
 FactoryGirl.define do
   factory :ruby_gem do
     sequence(:name) { |n| "Generic Ruby Gem #{n}" }
@@ -13,4 +10,12 @@ FactoryGirl.define do
 
     ruby_gem
   end
+
+  factory :user do
+    sequence(:email) { |n| "user#{n}@example.com" }
+    first_name 'John'
+    last_name 'Smith'
+    password 'password'
+  end
 end
+

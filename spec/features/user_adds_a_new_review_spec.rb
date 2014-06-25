@@ -15,17 +15,18 @@ feature "user adds a new review", %Q{
 
   scenario 'user adds a new review' do
 
-    ruby_gem = RubyGem.create!(name: 'Pry', description: 'Debugger')
+    ruby_gem = FactoryGirl.create(:ruby_gem)
+    review = FactoryGirl.create(:review)
 
     visit "/ruby_gems/#{ruby_gem.id}"
 
-    fill_in 'Rating', with: '5'
-    fill_in 'Body', with: 'Opinion on this gem'
+    fill_in 'Rating', with: review.rating
+    fill_in 'Body', with: review.body
     click_on "Create Review"
 
     expect(page).to have_content('Success')
-    expect(page).to have_content('5')
-    expect(page).to have_content('Opinion on this gem')
+    expect(page).to have_content review.rating
+    expect(page).to have_content review.body
 
   end
 

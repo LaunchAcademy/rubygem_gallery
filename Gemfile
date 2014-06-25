@@ -44,6 +44,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-rails'
   gem 'capybara'
+  gem 'valid_attribute'
 end
 
 gem 'simple_form'

@@ -6,7 +6,7 @@ class RubyGemsController < ApplicationController
   def show
     @ruby_gem = RubyGem.find(params[:id])
     @review = Review.new
-    @reviews = @ruby_gem.reviews #Review.all.where("ruby_gem_id = ?", params[:id])
+    @reviews = @ruby_gem.reviews
   end
 
   def new
@@ -32,7 +32,7 @@ class RubyGemsController < ApplicationController
     @ruby_gem = RubyGem.find(params[:id])
     if @ruby_gem.update(ruby_gem_params)
       flash[:notice] = "Success"
-      redirect_to ruby_gem_path(@ruby_gem.id)
+      redirect_to ruby_gem_path(@ruby_gem)
     else
       flash.now[:notice] = "Error"
       render :edit
