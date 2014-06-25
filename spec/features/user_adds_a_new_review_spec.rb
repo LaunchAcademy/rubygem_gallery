@@ -32,8 +32,7 @@ feature "user adds a new review", %Q{
 
   scenario 'user does not supply a rating' do
 
-    ruby_gem = RubyGem.create!(name: 'Pry', description: 'Debugger')
-
+    ruby_gem = FactoryGirl.create(:ruby_gem)
     visit "/ruby_gems/#{ruby_gem.id}"
 
     click_on "Create Review"
