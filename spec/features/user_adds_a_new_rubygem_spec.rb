@@ -1,4 +1,4 @@
-require 'rails-helper'
+require 'rails_helper'
 
 feature "user adds a new rubygem", %Q{
   As a user
