@@ -18,8 +18,8 @@ feature 'sign up', %Q{
     fill_in 'Password Confirmation', with: user.password
     click_button 'Sign Up'
 
-    expect(page).to have_content("Sign Out")
-    expect(page).to_not have_content("Sign Up")
+    expect(page).to have_content('Sign Out')
+    expect(page).to_not have_content('Sign Up')
 
   end
 
@@ -32,7 +32,7 @@ feature 'sign up', %Q{
     fill_in 'Last Name', with: user.last_name
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
-    fill_in 'Password Confirmation', with: "drowssap"
+    fill_in 'Password Confirmation', with: 'drowssap'
     click_button 'Sign Up'
 
     expect(page).to have_content("confirmation doesn't match")
