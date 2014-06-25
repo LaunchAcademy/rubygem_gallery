@@ -3,4 +3,6 @@ class Review < ActiveRecord::Base
   validates :ruby_gem, presence: true
 
   belongs_to :ruby_gem
+  belongs_to :user
+  has_many :votes
 end
