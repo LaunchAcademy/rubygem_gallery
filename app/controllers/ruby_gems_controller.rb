@@ -6,7 +6,9 @@ class RubyGemsController < ApplicationController
   def show
     @ruby_gem = RubyGem.find(params[:id])
     @review = Review.new
+
     @reviews = @ruby_gem.reviews
+
   end
 
   def new
@@ -15,12 +17,18 @@ class RubyGemsController < ApplicationController
 
   def create
     @ruby_gem = RubyGem.new(ruby_gem_params)
-    if @ruby_gem.save
-      flash[:notice] = "Success"
-      redirect_to ruby_gems_path
+    @ruby_gem.user_id = current_user.id
+    if signed_in?
+      if @ruby_gem.save
+        flash[:notice] = "Success"
+        redirect_to ruby_gems_path
+      else
+        flash.now[:notice] = "Error"
+        render :new
+      end
     else
-      flash.now[:notice] = "Error"
-      render :new
+      flash[:notice] = "You must be signed in to create a gem."
+      redirect_to new_user_registration_path
     end
   end
 

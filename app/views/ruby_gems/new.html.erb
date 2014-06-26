@@ -1,5 +1,9 @@
-<%= simple_form_for(@ruby_gem) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :description %>
-  <%= f.button :submit %>
+<% if signed_in? %>
+  <%= simple_form_for(@ruby_gem) do |f| %>
+    <%= f.input :name %>
+    <%= f.input :description %>
+    <%= f.button :submit %>
+  <% end %>
+<% else %>
+  <p>You must be signed in to add a gem</p>
 <% end %>

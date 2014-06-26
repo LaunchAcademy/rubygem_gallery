@@ -1,5 +1,6 @@
 <ul>
-  <% @ruby_gems.each do |rg| %>
-    <li><%= rg.name %> <%= rg.description %></li>
+  <% @ruby_gems.each do |rubygem| %>
+    <li><%= link_to rubygem.name, ruby_gem_path(rubygem) %></li>
   <% end %>
 </ul>
+
