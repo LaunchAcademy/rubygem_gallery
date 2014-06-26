@@ -11,6 +11,7 @@ FactoryGirl.define do
     body 'This gem sucks'
 
     ruby_gem
+    user
   end
 
   factory :user do

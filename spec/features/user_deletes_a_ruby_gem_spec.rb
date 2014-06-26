@@ -26,7 +26,6 @@ feature "user deletes a ruby gem", %Q{
       click_on "Delete"
 
       expect(page).to have_content 'Deleted'
-      expect(page).to_not have_content 'Error'
     end
 
     scenario 'unauthorized user cannot delete ruby gem' do
