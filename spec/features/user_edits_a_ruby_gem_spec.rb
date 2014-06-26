@@ -18,7 +18,7 @@ feature "user can edit their ruby gem", %Q{
       login(@user)
     end
 
-    scenario 'user edits a ruby gem they created' do
+    scenario 'user edits own ruby gem' do
       ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
 
       visit edit_ruby_gem_path(ruby_gem.id)
@@ -36,9 +36,9 @@ feature "user can edit their ruby gem", %Q{
       ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
 
       visit edit_ruby_gem_path(ruby_gem.id)
-      fill_in 'Name', with: ' '
-      fill_in 'Description', with: ' '
-      click_on "Update Ruby gem"
+      fill_in 'Name', with: ''
+      fill_in 'Description', with: ''
+      click_on "Update Ruby gem"    #change this to Ruby Gem
 
       expect(page).to_not have_content('Success')
       expect(page).to have_content("can't be blank")
