@@ -2,6 +2,8 @@ FactoryGirl.define do
   factory :ruby_gem do
     sequence(:name) { |n| "Generic Ruby Gem #{n}" }
     description 'A gem'
+
+    user
   end
 
   factory :review do
@@ -16,7 +18,6 @@ FactoryGirl.define do
     first_name 'John'
     last_name 'Smith'
     password 'password'
-    id '1'
   end
 end
 
