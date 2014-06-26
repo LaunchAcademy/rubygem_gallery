@@ -1,4 +1,6 @@
 class RubyGemsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def index
     @ruby_gems = RubyGem.all
   end
@@ -34,10 +36,12 @@ class RubyGemsController < ApplicationController
 
   def edit
     @ruby_gem = RubyGem.find(params[:id])
+    authorize_to_edit
   end
 
   def update
     @ruby_gem = RubyGem.find(params[:id])
+    authorize_to_edit
     if @ruby_gem.update(ruby_gem_params)
       flash[:notice] = "Success"
       redirect_to ruby_gem_path(@ruby_gem)
@@ -49,6 +53,7 @@ class RubyGemsController < ApplicationController
 
   def destroy
     @ruby_gem = RubyGem.find(params[:id])
+    authorize_to_edit
     if @ruby_gem.destroy
       flash[:notice] = "Deleted"
       redirect_to ruby_gems_path
@@ -62,5 +67,12 @@ class RubyGemsController < ApplicationController
 
   def ruby_gem_params
     params.require(:ruby_gem).permit(:name, :description)
+  end
+
+  def authorize_to_edit
+    if current_user != @ruby_gem.user
+      flash[:notice] = "You are not authorized to do that."
+      redirect_to '/'
+    end
   end
 end
