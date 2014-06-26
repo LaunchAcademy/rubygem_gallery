@@ -13,33 +13,38 @@ feature "user adds a new review", %Q{
 # I need to see a success message if it submits successfully
 # I need to see an error message if it does not save
 
-  scenario 'user adds a new review' do
+  context 'authenticated user' do
+    before :each do
+      @user = FactoryGirl.create(:user)
+      login(@user)
+      @ruby_gem = FactoryGirl.create(:ruby_gem)
+      visit ruby_gem_path(@ruby_gem)
+    end
 
-    ruby_gem = FactoryGirl.create(:ruby_gem)
-    review = FactoryGirl.create(:review)
+    scenario 'user adds a new review' do
+      review = FactoryGirl.create(:review)
 
-    visit "/ruby_gems/#{ruby_gem.id}"
+      fill_in 'Rating', with: review.rating
+      fill_in 'Body', with: review.body
+      click_on "Create Review"
 
-    fill_in 'Rating', with: review.rating
-    fill_in 'Body', with: review.body
-    click_on "Create Review"
+      expect(page).to have_content('Success')
+      expect(page).to have_content review.rating
+      expect(page).to have_content review.body
+    end
 
-    expect(page).to have_content('Success')
-    expect(page).to have_content review.rating
-    expect(page).to have_content review.body
+    scenario 'user does not supply a rating' do
+      click_on "Create Review"
 
+      expect(page).to_not have_content('Success')
+      expect(page).to have_content("There was an error")
+    end
   end
 
-  scenario 'user does not supply a rating' do
-
+  scenario 'unauthenticated user cannot add review' do
     ruby_gem = FactoryGirl.create(:ruby_gem)
-    visit "/ruby_gems/#{ruby_gem.id}"
+    visit ruby_gem_path(ruby_gem)
 
-    click_on "Create Review"
-
-    expect(page).to_not have_content('Success')
-    expect(page).to have_content("There was an error")
-
+    expect(page).to have_content('You must be signed in')
   end
-
 end
