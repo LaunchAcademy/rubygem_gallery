@@ -15,21 +15,23 @@
 <ul>
   <% @reviews.each do |review| %>
     <li>
-    <% if current_user.vote?(review) == nil %>
-      <%= button_to "Vote Up", ruby_gem_review_votes_path(@ruby_gem, review, vote: {direction: 1}), method: :post %>
-      <%= button_to "Vote Down", ruby_gem_review_votes_path(@ruby_gem, review, vote: {direction: -1}), method: :post %>
-    <% elsif current_user.vote?(review) == 1 %>
-      <%= button_to "Vote Down", ruby_gem_review_vote_path(@ruby_gem, review, current_user.vote(review), vote: {direction: -1}), method: :patch %>
-    <% elsif current_user.vote?(review) == -1 %>
-      <%= button_to "Vote Up", ruby_gem_review_vote_path(@ruby_gem, review, current_user.vote(review), vote: {direction: 1}), method: :patch %>
-    <% end %>
-      <h4>vote count</h4>
+      <% if signed_in? %>
+        <% if current_user.vote?(review) == nil %>
+          <%= button_to "Vote Up", ruby_gem_review_votes_path(@ruby_gem, review, vote: {direction: 1}), method: :post %>
+          <%= button_to "Vote Down", ruby_gem_review_votes_path(@ruby_gem, review, vote: {direction: -1}), method: :post %>
+        <% elsif current_user.vote?(review) == 1 %>
+          <%= button_to "Vote Down", ruby_gem_review_vote_path(@ruby_gem, review, current_user.vote(review), vote: {direction: -1}), method: :patch %>
+        <% elsif current_user.vote?(review) == -1 %>
+          <%= button_to "Vote Up", ruby_gem_review_vote_path(@ruby_gem, review, current_user.vote(review), vote: {direction: 1}), method: :patch %>
+        <% end %>
+      <% end %>
+      <h4>vote count</h4><%= review.vote_count %>
       <%= review.rating %> <%= review.body %>
       <% if signed_in? && current_user.id == review.user_id%>
         <%=link_to 'Edit', edit_review_path(review) %>
         <%=link_to 'Delete', review, method: :delete %>
       <% end %>
-    </li>
+    </li></br>
   <% end %>
 </ul>
 

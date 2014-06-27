@@ -4,5 +4,5 @@ class Vote < ActiveRecord::Base
   validates :direction, presence: true, inclusion: { in: [1,-1]}
 
   belongs_to :user
-  belongs_to :review, dependent: :destroy
+  belongs_to :review, dependent: :destroy, counter_cache: true
 end

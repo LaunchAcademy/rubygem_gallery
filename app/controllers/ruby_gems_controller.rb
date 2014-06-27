@@ -7,8 +7,8 @@ class RubyGemsController < ApplicationController
     @ruby_gem = RubyGem.find(params[:id])
     @review = Review.new
     @vote = Vote.new
-    @reviews = @ruby_gem.reviews
-
+    @reviews = Review.where("ruby_gem_id = ?", params[:id])
+      .to_a.sort_by(&:vote_count).reverse
   end
 
   def new
