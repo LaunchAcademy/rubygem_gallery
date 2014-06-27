@@ -17,7 +17,7 @@ feature "user views ruby gem show page", %Q{
     ruby_gem = FactoryGirl.create(:ruby_gem)
     reviews = FactoryGirl.create_list(:review, 3, ruby_gem: ruby_gem)
 
-    visit "/ruby_gems/#{ruby_gem.id}"
+    visit ruby_gem_path(ruby_gem)
 
     expect(page).to have_content ruby_gem.name
     expect(page).to have_content ruby_gem.description

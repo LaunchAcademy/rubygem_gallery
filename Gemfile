@@ -45,6 +45,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'capybara'
   gem 'valid_attribute'
+  gem 'launchy'
 end
 
 gem 'simple_form'

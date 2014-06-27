@@ -2,13 +2,16 @@ FactoryGirl.define do
   factory :ruby_gem do
     sequence(:name) { |n| "Generic Ruby Gem #{n}" }
     description 'A gem'
+
+    user
   end
 
   factory :review do
-    sequence(:rating) { |n| n }
+    rating 1
     body 'This gem sucks'
 
     ruby_gem
+    user
   end
 
   factory :user do
@@ -16,6 +19,7 @@ FactoryGirl.define do
     first_name 'John'
     last_name 'Smith'
     password 'password'
+    role 'member'
   end
 end
 

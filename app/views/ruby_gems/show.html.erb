@@ -1,16 +1,30 @@
-<h1>ruby gem name</h1>
-<%= @ruby_gem.name %>
-<h1>ruby gem description</h1>
+<h1><%= @ruby_gem.name %></h1>
 <%= @ruby_gem.description %>
 
-<h3>Reviews</h3>
+
 <% if signed_in? %>
-  <% if current_user.id == @ruby_gem.user_id %>
-  <%= link_to "Edit", edit_ruby_gem_path(@ruby_gem) %>
-  <%= link_to "Delete", ruby_gem_path(@ruby_gem), method: :delete %>
-<% end %>
+  <% if current_user == @ruby_gem.user || current_user.role == 'admin' %>
+    <%= link_to "Edit", edit_ruby_gem_path(@ruby_gem) %>
+    <%= link_to "Delete", ruby_gem_path(@ruby_gem), method: :delete %>
+  <% end %>
 <% end %>
 
+<h3>Reviews</h3>
+<div>
+  <ul class='reviews'>
+    <% @reviews.each do |review| %>
+      <li>
+        <%= review.rating %> <%= review.body %>
+        <% if signed_in? %>
+          <% if current_user == review.user || current_user.role == 'admin' %>
+            <%=link_to 'Edit', edit_review_path(review) %>
+            <%=link_to 'Delete', review, method: :delete %>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
 <ul>
   <% @reviews.each do |review| %>
@@ -57,3 +71,4 @@
 <% else %>
   <p>You must be signed in to write a review.</p>
 <% end %>
+
