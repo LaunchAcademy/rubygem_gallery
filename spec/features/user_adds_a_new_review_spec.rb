@@ -24,7 +24,7 @@ feature "user adds a new review", %Q{
     scenario 'user adds a new review' do
       review = FactoryGirl.create(:review)
 
-      fill_in 'Rating', with: review.rating
+      choose('review_rating_3')
       fill_in 'Body', with: review.body
       click_on "Create Review"
 
