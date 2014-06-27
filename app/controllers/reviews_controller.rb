@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @review = Review.new(review_params)
     @reviews = Review.all.order(created_at: :desc)
@@ -22,12 +24,14 @@ class ReviewsController < ApplicationController
 
   def edit
     @review = Review.find(params[:id])
+    authorize_to_edit
   end
 
   def update
     @review = Review.find(params[:id])
     @ruby_gem = @review.ruby_gem
     @review.ruby_gem_id = @ruby_gem.id
+    authorize_to_edit
 
     if @review.update(review_params)
       flash[:notice] = "Success"
@@ -41,6 +45,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     @ruby_gem = @review.ruby_gem
+    authorize_to_edit
     if @review.destroy
       flash[:notice] = "Deleted"
       redirect_to ruby_gem_path(@ruby_gem)
@@ -56,4 +61,10 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(:rating, :body)
   end
 
+  def authorize_to_edit
+    if current_user != @review.user
+      flash[:notice] = "You are not authorized to do that."
+      redirect_to '/'
+    end
+  end
 end

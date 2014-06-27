@@ -6,21 +6,40 @@ feature "user deletes a ruby gem", %Q{
   So I don't see again.
 } do
 
-# TODO need to be author / admin of ruby gem
-# Want to click link to delete ruby gem
-# Prompt to be sure you want to delete
+# I need to be the author of this gem
+# I need to click a link to delete this ruby gem
+# I need to be prompted to be sure I want to delete this gem
 # I want to delete reviews associated with this ruby gem
 # I need to see a success message if submission is successful.
 # I need to see an error message if submission is unsuccessful.
 
-  scenario 'user deletes ruby gem' do
-    rubygem = FactoryGirl.create(:ruby_gem)
+  context 'authenticated user' do
+    before :each do
+      @user = FactoryGirl.create(:user)
+      login(@user)
+    end
 
-    visit ruby_gem_path(rubygem)
+    scenario 'authorized user deletes ruby gem' do
+      ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
+      visit ruby_gem_path(ruby_gem)
 
-    click_on "Delete"
+      click_on "Delete"
 
-    expect(page).to have_content 'Deleted'
-    expect(page).to_not have_content 'Error'
+      expect(page).to have_content 'Deleted'
+    end
+
+    scenario 'unauthorized user cannot delete ruby gem' do
+      ruby_gem = FactoryGirl.create(:ruby_gem)
+      visit ruby_gem_path(ruby_gem)
+
+      expect(page).to_not have_content('Delete')
+    end
+  end
+
+  scenario 'unauthenticated user cannot delete ruby gem' do
+    ruby_gem = FactoryGirl.create(:ruby_gem)
+    visit ruby_gem_path(ruby_gem)
+
+    expect(page).to_not have_content('Delete')
   end
 end

@@ -12,31 +12,50 @@ feature "user can edit their ruby gem", %Q{
 # I need to see a success message if submission is successful.
 # I need to see an error message if submission is unsuccessful.
 
-  scenario 'user edits a existing ruby gem' do
-    rubygem = FactoryGirl.create(:ruby_gem)
+  context 'authenticated user' do
+    before :each do
+      @user = FactoryGirl.create(:user)
+      login(@user)
+    end
 
-    visit edit_ruby_gem_path(rubygem.id)
+    scenario 'user edits own ruby gem' do
+      ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
 
-    fill_in 'Name', with: rubygem.name
-    fill_in 'Description', with: rubygem.description
-    click_on "Update Ruby gem"
+      visit edit_ruby_gem_path(ruby_gem.id)
 
-    expect(page).to have_content('Success')
-    expect(page).to have_content rubygem.name
-    expect(page).to have_content rubygem.description
+      fill_in 'Name', with: ruby_gem.name
+      fill_in 'Description', with: ruby_gem.description
+      click_on "Update Ruby gem"
 
+      expect(page).to have_content('Success')
+      expect(page).to have_content ruby_gem.name
+      expect(page).to have_content ruby_gem.description
+    end
+
+    scenario 'authorized user sees error message if form incomplete' do
+      ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
+
+      visit edit_ruby_gem_path(ruby_gem.id)
+      fill_in 'Name', with: ''
+      fill_in 'Description', with: ''
+      click_on "Update Ruby gem"    #change this to Ruby Gem
+
+      expect(page).to_not have_content('Success')
+      expect(page).to have_content("can't be blank")
+    end
+
+    scenario 'unauthorized user cannot edit ruby gem' do
+      ruby_gem = FactoryGirl.create(:ruby_gem)
+      visit ruby_gem_path(ruby_gem)
+
+      expect(page).to_not have_content('Edit')
+    end
   end
 
-  scenario 'user sees error message if fields empty' do
-    rubygem = FactoryGirl.create(:ruby_gem)
+  scenario 'unauthenticated user cannot edit ruby gem' do
+    ruby_gem = FactoryGirl.create(:ruby_gem)
+    visit ruby_gem_path(ruby_gem)
 
-    visit edit_ruby_gem_path(rubygem.id)
-    fill_in 'Name', with: ' '
-    fill_in 'Description', with: ' '
-    click_on "Update Ruby gem"
-
-    expect(page).to_not have_content('Success')
-    expect(page).to have_content("can't be blank")
+    expect(page).to_not have_content('Edit')
   end
-
 end
