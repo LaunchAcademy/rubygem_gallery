@@ -11,13 +11,15 @@
 
 <h3>Reviews</h3>
 <div>
-  <ul>
+  <ul class='reviews'>
     <% @reviews.each do |review| %>
       <li>
         <%= review.rating %> <%= review.body %>
-        <% if signed_in? && current_user.id == review.user_id%>
-          <%=link_to 'Edit', edit_review_path(review) %>
-          <%=link_to 'Delete', review, method: :delete %>
+        <% if signed_in? %>
+          <% if current_user == review.user || current_user.role == 'admin' %>
+            <%=link_to 'Edit', edit_review_path(review) %>
+            <%=link_to 'Delete', review, method: :delete %>
+          <% end %>
         <% end %>
       </li>
     <% end %>

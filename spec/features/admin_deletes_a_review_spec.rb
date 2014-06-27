@@ -21,7 +21,9 @@ feature "admin deletes a review", %Q{
     login(admin)
     visit ruby_gem_path(@ruby_gem)
 
-    click_on 'Delete'
+    within '.reviews' do
+      click_on 'Delete'
+    end
 
     expect(page).to have_content 'Deleted'
   end
