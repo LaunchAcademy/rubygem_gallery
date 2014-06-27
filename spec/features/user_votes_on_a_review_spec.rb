@@ -40,4 +40,15 @@ feature "user votes on a review", %Q{
       page.should_not have_selector("input[type=submit][value='Vote Down']")
     end
   end
+
+  scenario "unauthenticated user can't vote" do
+    ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
+    review = FactoryGirl.create(:review, ruby_gem: ruby_gem, user: @user)
+    @user = FactoryGirl.create(:user)
+
+    visit ruby_gem_path(ruby_gem)
+
+    page.should_not have_selector("input[type=submit][value='Vote Up']")
+    page.should_not have_selector("input[type=submit][value='Vote Down']")
+  end
 end
