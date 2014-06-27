@@ -1,21 +1,22 @@
 require 'rails_helper'
 
-feature "admin deletes a ruby gem", %Q{
+feature "admin deletes a review", %Q{
   As an admin
-  I want to delete a ruby gem
-  So I can get rid of inappropriate gems
+  I want to delete a review
+  So I can get rid of inappropriate reviews
 } do
 
 # I need to be an admin
-# I need to be able to delete any ruby gem
+# I need to be able to delete any review
 # I need to see a success message if it is deleted
 # I need to see an error message if it is not deleted
 
   before :each do
     @ruby_gem = FactoryGirl.create(:ruby_gem)
+    @review = FactoryGirl.create(:review, ruby_gem: @ruby_gem)
   end
 
-  scenario 'authenticated admin can delete ruby gem' do
+  scenario 'authenticated admin can delete review' do
     admin = FactoryGirl.create(:user, role: 'admin')
     login(admin)
     visit ruby_gem_path(@ruby_gem)
@@ -25,7 +26,7 @@ feature "admin deletes a ruby gem", %Q{
     expect(page).to have_content 'Deleted'
   end
 
-  scenario 'authenticated non-admin cannot delete ruby gem' do
+  scenario 'authenticated non-admin cannot delete review' do
     user = FactoryGirl.create(:user)
     login(user)
     visit ruby_gem_path(@ruby_gem)
@@ -33,7 +34,7 @@ feature "admin deletes a ruby gem", %Q{
     expect(page).to_not have_content('Delete')
   end
 
-  scenario 'unauthenticated user cannot delete ruby gem' do
+  scenario 'unauthenticated user cannot delete review' do
     visit ruby_gem_path(@ruby_gem)
 
     expect(page).to_not have_content('Delete')
