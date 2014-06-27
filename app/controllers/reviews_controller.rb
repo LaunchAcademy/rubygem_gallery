@@ -62,9 +62,8 @@ class ReviewsController < ApplicationController
   end
 
   def authorize_to_edit
-    if current_user != @review.user
+    if current_user != @review.user || current_user.role = 'admin'
       flash[:notice] = "You are not authorized to do that."
-      redirect_to '/'
     end
   end
 end
