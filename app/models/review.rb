@@ -12,7 +12,7 @@ class Review < ActiveRecord::Base
       votes.each do |vote|
         vote_values << vote.direction
       end
-      vote_values.inject{|sum, vote| sum + vote}
+      vote_values.inject { |sum, vote| sum + vote }
     else
       0
     end

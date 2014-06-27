@@ -4,10 +4,10 @@ class VotesController < ApplicationController
     @vote.review = Review.find(params[:review_id])
     @ruby_gem = RubyGem.find(params[:ruby_gem_id])
     if @vote.save
-      flash[:notice] = "Success"
+      flash[:notice] = 'Success'
       redirect_to ruby_gem_path(@ruby_gem)
     else
-      flash[:notice] = "Vote not saved"
+      flash[:notice] = 'Vote not saved'
       redirect_to ruby_gem_path(@ruby_gem)
     end
   end
@@ -16,10 +16,10 @@ class VotesController < ApplicationController
     @vote = Vote.where(review_id: params[:review_id], user: current_user).first
     @ruby_gem = RubyGem.find(params[:ruby_gem_id])
     if @vote.update_attribute(:direction, vote_params[:direction])
-      flash[:notice] = "Success"
+      flash[:notice] = 'Success'
       redirect_to ruby_gem_path(@ruby_gem)
     else
-      flash[:notice] = "Vote not saved"
+      flash[:notice] = 'Vote not saved'
       redirect_to ruby_gem_path(@ruby_gem)
     end
   end
