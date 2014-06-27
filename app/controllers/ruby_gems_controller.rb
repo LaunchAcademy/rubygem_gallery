@@ -70,9 +70,8 @@ class RubyGemsController < ApplicationController
   end
 
   def authorize_to_edit
-    if current_user != @ruby_gem.user
+    if current_user != @ruby_gem.user || current_user.role != 'admin'
       flash[:notice] = "You are not authorized to do that."
-      redirect_to '/'
     end
   end
 end

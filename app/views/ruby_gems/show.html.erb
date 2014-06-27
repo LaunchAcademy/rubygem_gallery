@@ -3,7 +3,7 @@
 
 
 <% if signed_in? %>
-  <% if current_user.id == @ruby_gem.user_id %>
+  <% if current_user == @ruby_gem.user || current_user.role == 'admin' %>
     <%= link_to "Edit", edit_ruby_gem_path(@ruby_gem) %>
     <%= link_to "Delete", ruby_gem_path(@ruby_gem), method: :delete %>
   <% end %>
