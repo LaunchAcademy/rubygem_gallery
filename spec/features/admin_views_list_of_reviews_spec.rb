@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature 'admin views list of reviews', %Q{
+feature 'admin views list of reviews', %Q(
   As an admin
   I want to view a list of all reviews
   So I can delete them more easily
-} do
+) do
 
 # I must be an admin
 # I must see all reviews for all ruby gems

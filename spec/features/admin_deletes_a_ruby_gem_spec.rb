@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature "admin deletes a ruby gem", %Q{
+feature 'admin deletes a ruby gem', %Q(
   As an admin
   I want to delete a ruby gem
   So I can get rid of inappropriate gems
-} do
+) do
 
 # I need to be an admin
 # I need to be able to delete any ruby gem
