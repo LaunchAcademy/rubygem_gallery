@@ -41,6 +41,6 @@ feature "user adds a new ruby gem", %Q{
   scenario 'unauthenticated user cannot add ruby gem' do
     visit new_ruby_gem_path
 
-    expect(page).to have_content('You must be signed in')
+    expect(page).to have_content('You need to sign in')
   end
 end

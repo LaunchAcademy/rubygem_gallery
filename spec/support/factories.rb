@@ -7,7 +7,7 @@ FactoryGirl.define do
   end
 
   factory :review do
-    sequence(:rating) { |n| n }
+    rating 1
     body 'This gem sucks'
 
     ruby_gem
