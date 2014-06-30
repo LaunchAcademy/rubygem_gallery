@@ -37,6 +37,6 @@ feature 'admin views list of reviews', %Q(
     review = FactoryGirl.create(:review)
     visit admin_reviews_path
 
-    expect(page).to have_content 'Sign In'
+    expect(page).to have_content 'You need to sign in to do that.'
   end
 end

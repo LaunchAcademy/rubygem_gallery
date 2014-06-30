@@ -21,8 +21,13 @@ module Admin
     private
 
     def authorize_admin
-      if current_user && current_user.role != 'admin'
-        flash[:notice] = 'You are not authorized to do that.'
+      if signed_in?
+        if current_user.role != 'admin'
+          flash[:notice] = 'You are not authorized to do that.'
+          redirect_to '/'
+        end
+      else
+        flash[:notice] = 'You need to sign in to do that.'
         redirect_to '/'
       end
     end
