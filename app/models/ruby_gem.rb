@@ -4,4 +4,8 @@ class RubyGem < ActiveRecord::Base
 
   belongs_to :user
   has_many :reviews, dependent: :destroy
+  has_many :member_mailers
 end
+
+
+
