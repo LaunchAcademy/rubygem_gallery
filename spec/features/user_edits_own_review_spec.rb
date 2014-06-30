@@ -18,26 +18,13 @@ feature 'user edits own review', %Q{
       review = FactoryGirl.create(:review, ruby_gem: ruby_gem, user: @user)
       visit edit_review_path(review)
 
-      fill_in 'Rating', with: review.rating
+      choose('review_rating_3')
       fill_in 'Body', with: review.body
       click_on 'Update Review'
 
       expect(page).to have_content('Success')
       expect(page).to have_content review.rating
       expect(page).to have_content review.body
-    end
-
-    scenario 'authorized user sees error message if form incomplete' do
-      ruby_gem = FactoryGirl.create(:ruby_gem)
-      review = FactoryGirl.create(:review, ruby_gem: ruby_gem, user: @user)
-      visit edit_review_path(review)
-
-      fill_in 'Rating', with: ''
-      fill_in 'Body', with: ''
-      click_on 'Update Review'
-
-      expect(page).to_not have_content('Success')
-      expect(page).to have_content('Error')
     end
 
     scenario 'unauthorized user cannot edit someone elses review' do

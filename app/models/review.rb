@@ -5,4 +5,8 @@ class Review < ActiveRecord::Base
   belongs_to :ruby_gem
   belongs_to :user
   has_many :votes
+
+  def vote_count
+    votes.sum(:direction)
+  end
 end

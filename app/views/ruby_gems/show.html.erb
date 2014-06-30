@@ -14,27 +14,46 @@
   <ul class='reviews'>
     <% @reviews.each do |review| %>
       <li>
-        <%= review.rating %> <%= review.body %>
         <% if signed_in? %>
-          <% if current_user == review.user || current_user.role == 'admin' %>
-            <%=link_to 'Edit', edit_review_path(review) %>
-            <%=link_to 'Delete', review, method: :delete %>
+          <% if !current_user.vote?(review)%>
+            <%= button_to "Vote Up", ruby_gem_review_votes_path(@ruby_gem, review, vote: {direction: 1}), method: :post %>
+            <%= button_to "Vote Down", ruby_gem_review_votes_path(@ruby_gem, review, vote: {direction: -1}), method: :post %>
+          <% elsif current_user.vote?(review) == 1 %>
+            <%= button_to "Vote Down", ruby_gem_review_vote_path(@ruby_gem, review, current_user.vote(review), vote: {direction: -1}), method: :patch %>
+          <% elsif current_user.vote?(review) == -1 %>
+            <%= button_to "Vote Up", ruby_gem_review_vote_path(@ruby_gem, review, current_user.vote(review), vote: {direction: 1}), method: :patch %>
           <% end %>
         <% end %>
-      </li>
+        <h4>vote count</h4><%= review.vote_count %>
+        <%= review.rating %> <%= review.body %>
+        <% if authorized_to_edit?(review) %>
+          <%=link_to 'Edit', edit_review_path(review) %>
+          <%=link_to 'Delete', review, method: :delete %>
+        <% end %>
+      </li></br>
     <% end %>
   </ul>
 </div>
-
-<div>
-  <h3>Post a new review</h3>
-  <% if signed_in? %>
-    <%= simple_form_for([@ruby_gem, @review]) do |f| %>
-      <%= f.input :rating %>
-      <%= f.input :body %>
-      <%= f.button :submit %>
-    <% end %>
-  <% else %>
-    <p>You must be signed in to write a review.</p>
+<h3>Post a new review</h3>
+<% if signed_in? %>
+  <%= simple_form_for([@ruby_gem, @review]) do |f| %>
+    <div>
+      <h3>Rating:</h3>
+      <%= f.label :rating, "1" %>
+      <%= f.radio_button :rating, 1 %>
+      <%= f.label :rating, "2" %>
+      <%= f.radio_button :rating, 2 %>
+      <%= f.label :rating, "3" %>
+      <%= f.radio_button :rating, 3 %>
+      <%= f.label :rating, "4" %>
+      <%= f.radio_button :rating, 4 %>
+      <%= f.label :rating, "5" %>
+      <%= f.radio_button :rating, 5 %>
+    </div>
+    <%= f.input :body %>
+    <%= f.button :submit %>
   <% end %>
-</div>
+<% else %>
+  <p>You must be signed in to write a review.</p>
+<% end %>
+

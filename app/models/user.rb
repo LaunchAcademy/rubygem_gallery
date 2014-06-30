@@ -9,4 +9,15 @@ class User < ActiveRecord::Base
   has_many :ruby_gems
   has_many :reviews
   has_many :votes
+
+  def vote?(review)
+    vote = votes.where(review: review).first
+    if vote
+      vote.direction
+    end
+  end
+
+  def vote(review)
+    Vote.find_by(review: review)
+  end
 end

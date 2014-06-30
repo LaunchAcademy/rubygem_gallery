@@ -8,9 +8,8 @@ class RubyGemsController < ApplicationController
   def show
     @ruby_gem = RubyGem.find(params[:id])
     @review = Review.new
-
-    @reviews = @ruby_gem.reviews
-
+    @vote = Vote.new
+    @reviews = Review.where(ruby_gem: @ruby_gem).to_a.sort_by(&:vote_count).reverse
   end
 
   def new
@@ -19,18 +18,13 @@ class RubyGemsController < ApplicationController
 
   def create
     @ruby_gem = RubyGem.new(ruby_gem_params)
-    @ruby_gem.user_id = current_user.id
-    if signed_in?
-      if @ruby_gem.save
-        flash[:notice] = "Success"
-        redirect_to ruby_gems_path
-      else
-        flash.now[:notice] = "Error"
-        render :new
-      end
+    @ruby_gem.user = current_user
+    if @ruby_gem.save
+      flash[:notice] = 'Success'
+      redirect_to ruby_gems_path
     else
-      flash[:notice] = "You must be signed in to create a gem."
-      redirect_to new_user_registration_path
+      flash.now[:notice] = 'Error'
+      render :new
     end
   end
 
@@ -43,10 +37,10 @@ class RubyGemsController < ApplicationController
     @ruby_gem = RubyGem.find(params[:id])
     authorize_to_edit
     if @ruby_gem.update(ruby_gem_params)
-      flash[:notice] = "Success"
+      flash[:notice] = 'Success'
       redirect_to ruby_gem_path(@ruby_gem)
     else
-      flash.now[:notice] = "Error"
+      flash.now[:notice] = 'Error'
       render :edit
     end
   end
@@ -55,10 +49,10 @@ class RubyGemsController < ApplicationController
     @ruby_gem = RubyGem.find(params[:id])
     authorize_to_edit
     if @ruby_gem.destroy
-      flash[:notice] = "Deleted"
+      flash[:notice] = 'Deleted'
       redirect_to ruby_gems_path
     else
-      flash[:notice] = "Error"
+      flash[:notice] = 'Error'
       render :show
     end
   end
@@ -71,7 +65,7 @@ class RubyGemsController < ApplicationController
 
   def authorize_to_edit
     if current_user != @ruby_gem.user || current_user.role != 'admin'
-      flash[:notice] = "You are not authorized to do that."
+      flash[:notice] = 'You are not authorized to do that.'
     end
   end
 end

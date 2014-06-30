@@ -1,6 +1,18 @@
 <h1>Edit This Review</h1>
 <%= simple_form_for([@ruby_gem, @review]) do |f| %>
-  <%= f.input :rating %>
+  <div>
+    <h3>Rating:</h3>
+    <%= f.label :rating, "1" %>
+    <%= f.radio_button :rating, 1 %>
+    <%= f.label :rating, "2" %>
+    <%= f.radio_button :rating, 2 %>
+    <%= f.label :rating, "3" %>
+    <%= f.radio_button :rating, 3 %>
+    <%= f.label :rating, "4" %>
+    <%= f.radio_button :rating, 4 %>
+    <%= f.label :rating, "5" %>
+    <%= f.radio_button :rating, 5 %>
+  </div>
   <%= f.input :body %>
   <%= f.button :submit %>
 <% end %>
