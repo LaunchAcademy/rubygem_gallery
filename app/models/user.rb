@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   has_many :votes
 
   def vote?(review)
-    # vote = Vote.where(user: self, review: review).first
     vote = votes.where(review: review).first
     if vote
       vote.direction

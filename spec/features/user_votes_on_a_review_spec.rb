@@ -10,13 +10,13 @@ feature 'user votes on a review', %Q(
     before :each do
       @user = FactoryGirl.create(:user)
       login(@user)
+      ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
+      review = FactoryGirl.create(:review, ruby_gem: ruby_gem, user: @user)
+      visit ruby_gem_path(ruby_gem)
+
     end
 
     scenario 'user clicks vote up' do
-      ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
-      review = FactoryGirl.create(:review, ruby_gem: ruby_gem, user: @user)
-
-      visit ruby_gem_path(ruby_gem)
       click_button 'Vote Up'
 
       page.should have_selector("input[type=submit][value='Vote Down']")
@@ -25,10 +25,6 @@ feature 'user votes on a review', %Q(
     end
 
     scenario 'user changes vote' do
-      ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
-      review = FactoryGirl.create(:review, ruby_gem: ruby_gem, user: @user)
-
-      visit ruby_gem_path(ruby_gem)
       click_button 'Vote Up'
 
       page.should have_selector("input[type=submit][value='Vote Down']")
@@ -42,11 +38,6 @@ feature 'user votes on a review', %Q(
   end
 
   scenario "unauthenticated user can't vote" do
-    ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
-    review = FactoryGirl.create(:review, ruby_gem: ruby_gem, user: @user)
-    @user = FactoryGirl.create(:user)
-
-    visit ruby_gem_path(ruby_gem)
 
     page.should_not have_selector("input[type=submit][value='Vote Up']")
     page.should_not have_selector("input[type=submit][value='Vote Down']")

@@ -9,7 +9,7 @@ class RubyGemsController < ApplicationController
     @ruby_gem = RubyGem.find(params[:id])
     @review = Review.new
     @vote = Vote.new
-    @reviews = Review.where('ruby_gem_id = ?', params[:id]).to_a.sort_by(&:vote_count).reverse
+    @reviews = Review.where(ruby_gem: @ruby_gem).to_a.sort_by(&:vote_count).reverse
   end
 
   def new
@@ -18,18 +18,13 @@ class RubyGemsController < ApplicationController
 
   def create
     @ruby_gem = RubyGem.new(ruby_gem_params)
-    @ruby_gem.user_id = current_user.id
-    if signed_in?
-      if @ruby_gem.save
-        flash[:notice] = 'Success'
-        redirect_to ruby_gems_path
-      else
-        flash.now[:notice] = 'Error'
-        render :new
-      end
+    @ruby_gem.user = current_user
+    if @ruby_gem.save
+      flash[:notice] = 'Success'
+      redirect_to ruby_gems_path
     else
-      flash[:notice] = 'You must be signed in to create a gem.'
-      redirect_to new_user_registration_path
+      flash.now[:notice] = 'Error'
+      render :new
     end
   end
 

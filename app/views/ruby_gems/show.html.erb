@@ -15,7 +15,7 @@
     <% @reviews.each do |review| %>
       <li>
         <% if signed_in? %>
-          <% if current_user.vote?(review) == nil %>
+          <% if !current_user.vote?(review)%>
             <%= button_to "Vote Up", ruby_gem_review_votes_path(@ruby_gem, review, vote: {direction: 1}), method: :post %>
             <%= button_to "Vote Down", ruby_gem_review_votes_path(@ruby_gem, review, vote: {direction: -1}), method: :post %>
           <% elsif current_user.vote?(review) == 1 %>
@@ -26,11 +26,9 @@
         <% end %>
         <h4>vote count</h4><%= review.vote_count %>
         <%= review.rating %> <%= review.body %>
-        <% if (signed_in? && current_user.id == review.user_id) || (signed_in? && current_user.role == 'admin') %>
-          <% if current_user == review.user || current_user.role == 'admin' %>
-            <%=link_to 'Edit', edit_review_path(review) %>
-            <%=link_to 'Delete', review, method: :delete %>
-          <% end %>
+        <% if authorized_to_edit?(review) %>
+          <%=link_to 'Edit', edit_review_path(review) %>
+          <%=link_to 'Delete', review, method: :delete %>
         <% end %>
       </li></br>
     <% end %>

@@ -4,7 +4,6 @@ Rails.application.routes.draw do
       resources :votes, only: [:create, :update, :destroy]
     end
   end
-  resources :votes, only: [:create, :update, :destroy]
   resources :reviews, only: [:edit, :update, :destroy]
   devise_for :users
   root 'ruby_gems#index'
