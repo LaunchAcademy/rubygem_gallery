@@ -19,27 +19,26 @@ feature 'user votes on a review', %Q(
     scenario 'user clicks vote up' do
       click_button 'Vote Up'
 
-      page.should have_selector("input[type=submit][value='Vote Down']")
-      page.should_not have_selector("input[type=submit][value='Vote Up']")
-
+      expect(page).to have_selector("input[type=submit][value='Vote Down']")
+      expect(page).to_not have_selector("input[type=submit][value='Vote Up']")
     end
 
     scenario 'user changes vote' do
       click_button 'Vote Up'
 
-      page.should have_selector("input[type=submit][value='Vote Down']")
-      page.should_not have_selector("input[type=submit][value='Vote Up']")
+      expect(page).to have_selector("input[type=submit][value='Vote Down']")
+      expect(page).to_not have_selector("input[type=submit][value='Vote Up']")
 
       click_button 'Vote Down'
 
-      page.should have_selector("input[type=submit][value='Vote Up']")
-      page.should_not have_selector("input[type=submit][value='Vote Down']")
+      expect(page).to have_selector("input[type=submit][value='Vote Up']")
+      expect(page).to_not have_selector("input[type=submit][value='Vote Down']")
     end
   end
 
   scenario "unauthenticated user can't vote" do
 
-    page.should_not have_selector("input[type=submit][value='Vote Up']")
-    page.should_not have_selector("input[type=submit][value='Vote Down']")
+    expect(page).to_not have_selector("input[type=submit][value='Vote Up']")
+    expect(page).to_not have_selector("input[type=submit][value='Vote Down']")
   end
 end
