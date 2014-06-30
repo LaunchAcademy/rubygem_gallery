@@ -1,6 +1,7 @@
 module Admin
   class ReviewsController < ApplicationController
     before_action :authorize_admin
+    before_action :authorize_admin
 
     def index
       @reviews = Review.all
@@ -20,13 +21,8 @@ module Admin
     private
 
     def authorize_admin
-      if signed_in?
-        if current_user.role != 'admin'
-          flash[:notice] = 'You are not authorized to do that.'
-          redirect_to '/'
-        end
-      else
-        flash[:notice] = 'You need to sign in to do that.'
+      if current_user && current_user.role != 'admin'
+        flash[:notice] = 'You are not authorized to do that.'
         redirect_to '/'
       end
     end
