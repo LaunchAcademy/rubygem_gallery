@@ -1,0 +1,11 @@
+<h1>List of Reviews</h1>
+
+<ul>
+  <% @reviews.each do |review| %>
+    <li><%= review.rating %> <%= review.body %>
+    <%= link_to 'Delete', review, method: :delete %>
+    <br/>
+    </li>
+  <% end %>
+</ul>
+

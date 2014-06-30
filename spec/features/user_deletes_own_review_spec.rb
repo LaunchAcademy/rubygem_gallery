@@ -29,7 +29,7 @@ feature 'user deletes own review', %Q{
     end
   end
 
-  scenario 'unautheticaed user cannot delete review' do
+  scenario 'unauthenticated user cannot delete review' do
     ruby_gem = FactoryGirl.create(:ruby_gem)
     visit ruby_gem_path(ruby_gem)
     review = FactoryGirl.create(:review)
