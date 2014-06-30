@@ -46,8 +46,11 @@ group :development, :test do
   gem 'capybara'
   gem 'valid_attribute'
   gem 'launchy'
+  gem 'dotenv-rails'
 end
 
 gem 'simple_form'
 
 gem 'carrierwave'
+
+gem 'fog'

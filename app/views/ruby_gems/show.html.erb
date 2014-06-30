@@ -1,6 +1,7 @@
 <h1><%= @ruby_gem.name %></h1>
-<%= @ruby_gem.description %>
-
+<%= @ruby_gem.description %><br/>
+<%= @ruby_gem.user.first_name %>
+<div class='profile_photo'><%= image_tag @ruby_gem.user.profile_photo %></div>
 
 <% if signed_in? %>
   <% if current_user == @ruby_gem.user || current_user.role == 'admin' %>
@@ -26,6 +27,9 @@
         <% end %>
         <h4>vote count</h4><%= review.vote_count %>
         <%= review.rating %> <%= review.body %>
+
+        <div class='profile_photo'><%= review.user.first_name %>
+          <%= image_tag review.user.profile_photo %></div>
         <% if authorized_to_edit?(review) %>
           <%=link_to 'Edit', edit_review_path(review) %>
           <%=link_to 'Delete', review, method: :delete %>
