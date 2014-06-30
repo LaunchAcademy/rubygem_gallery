@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   root 'ruby_gems#index'
 
   namespace :admin do
-    resources :ruby_gems
     resources :reviews, only: [:index, :destroy]
   end
 end
