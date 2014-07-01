@@ -7,11 +7,9 @@ class RubyGem < ActiveRecord::Base
 
   def self.search(search)
     if search
-      # binding.pry
       where('name ILIKE ?', "%#{search}%")
     else
       find(:all)
     end
   end
-
 end

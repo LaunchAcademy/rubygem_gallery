@@ -6,16 +6,17 @@ feature "user searches for a ruby gem", %Q(
   So that I can find the one I want
 ) do
 
-# I need to enter something in the form if I want to narrow results
-# I need to see a list of gems that match the search parameters
-# If I leave it blank I should see the complete list of ruby gems
+  # I need to enter something in the form if I want to narrow results
+  # I need to see a list of gems that match the search parameters
+  # If I leave it blank I should see the complete list of ruby gems
 
-  scenario 'user searches for a ruby gem' do
+  before :each do
     rubygem1 = FactoryGirl.create(:ruby_gem)
     rubygem2 = FactoryGirl.create(:ruby_gem, name: 'newname')
-
     visit ruby_gems_path
+  end
 
+  scenario 'user searches for a ruby gem' do
     fill_in 'search_field', with: rubygem1.name
     click_on 'Search'
 
@@ -24,11 +25,6 @@ feature "user searches for a ruby gem", %Q(
   end
 
   scenario 'user leaves the search form blank' do
-    rubygem1 = FactoryGirl.create(:ruby_gem)
-    rubygem2 = FactoryGirl.create(:ruby_gem, name: 'newname')
-
-    visit ruby_gems_path
-
     click_on 'Search'
 
     expect(page).to have_content rubygem1.name
