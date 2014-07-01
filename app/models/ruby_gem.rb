@@ -4,4 +4,14 @@ class RubyGem < ActiveRecord::Base
 
   belongs_to :user
   has_many :reviews, dependent: :destroy
+
+  def self.search(search)
+    if search
+      # binding.pry
+      where('name ILIKE ?', "%#{search}%")
+    else
+      find(:all)
+    end
+  end
+
 end

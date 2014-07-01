@@ -2,7 +2,11 @@ class RubyGemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @ruby_gems = RubyGem.all
+    if params[:search] ==  nil
+      @ruby_gems = RubyGem.all
+    else
+      @ruby_gems = RubyGem.search(params[:search])
+    end
   end
 
   def show
