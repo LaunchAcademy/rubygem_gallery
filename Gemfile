@@ -49,6 +49,7 @@ group :development, :test do
   gem 'dotenv-rails'
 end
 
+gem 'kaminari'
 gem 'simple_form'
 
 gem 'carrierwave'

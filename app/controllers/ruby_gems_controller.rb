@@ -3,9 +3,9 @@ class RubyGemsController < ApplicationController
 
   def index
     if !params[:search]
-      @ruby_gems = RubyGem.all
+      @ruby_gems = RubyGem.order("name").page(params[:page]).per(2)
     else
-      @ruby_gems = RubyGem.search(params[:search])
+      @ruby_gems = RubyGem.search(params[:search]).page(params[:page]).per(2)
     end
   end
 
