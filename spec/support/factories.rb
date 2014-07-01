@@ -20,6 +20,7 @@ FactoryGirl.define do
     last_name 'Smith'
     password 'password'
     role 'member'
+    profile_photo { File.open(File.join(Rails.root, '/spec/support/example.jpg')) }
   end
 end
 
