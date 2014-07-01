@@ -2,8 +2,8 @@
 
 <%= form_tag ruby_gems_path, :method => 'get' do %>
   <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
+    <%= text_field_tag :search, params[:search], id: 'search_field' %>
+    <%= submit_tag "Search", name: nil %>
   </p>
 <% end %>
 
