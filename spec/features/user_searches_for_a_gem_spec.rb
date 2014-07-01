@@ -11,23 +11,23 @@ feature "user searches for a ruby gem", %Q(
   # If I leave it blank I should see the complete list of ruby gems
 
   before :each do
-    rubygem1 = FactoryGirl.create(:ruby_gem)
-    rubygem2 = FactoryGirl.create(:ruby_gem, name: 'newname')
+    @rubygem1 = FactoryGirl.create(:ruby_gem)
+    @rubygem2 = FactoryGirl.create(:ruby_gem, name: 'newname')
     visit ruby_gems_path
   end
 
   scenario 'user searches for a ruby gem' do
-    fill_in 'search_field', with: rubygem1.name
+    fill_in 'search_field', with: @rubygem1.name
     click_on 'Search'
 
-    expect(page).to have_content rubygem1.name
-    expect(page).to_not have_content rubygem2.name
+    expect(page).to have_content @rubygem1.name
+    expect(page).to_not have_content @rubygem2.name
   end
 
   scenario 'user leaves the search form blank' do
     click_on 'Search'
 
-    expect(page).to have_content rubygem1.name
-    expect(page).to have_content rubygem2.name
+    expect(page).to have_content @rubygem1.name
+    expect(page).to have_content @rubygem2.name
   end
 end

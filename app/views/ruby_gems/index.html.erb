@@ -8,6 +8,7 @@
 <% end %>
 
 <ul>
+  <%= paginate @ruby_gems %>
   <% @ruby_gems.each do |rubygem| %>
     <li><%= link_to rubygem.name, ruby_gem_path(rubygem) %></li>
   <% end %>

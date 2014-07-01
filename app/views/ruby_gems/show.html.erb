@@ -6,7 +6,7 @@
 <% if signed_in? %>
   <% if current_user == @ruby_gem.user || current_user.role == 'admin' %>
     <%= link_to "Edit", edit_ruby_gem_path(@ruby_gem) %>
-    <%= link_to "Delete", ruby_gem_path(@ruby_gem), method: :delete %>
+    <%= link_to "Delete", ruby_gem_path(@ruby_gem), method: :delete, data: {:confirm => "Are you sure?"} %>
   <% end %>
 <% end %>
 
@@ -32,7 +32,7 @@
           <%= image_tag review.user.profile_photo %></div>
         <% if authorized_to_edit?(review) %>
           <%=link_to 'Edit', edit_review_path(review) %>
-          <%=link_to 'Delete', review, method: :delete %>
+          <%=link_to 'Delete', review, method: :delete, data: {:confirm => "Are you sure?"} %>
         <% end %>
       </li></br>
     <% end %>
