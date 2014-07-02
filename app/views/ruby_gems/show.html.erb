@@ -31,8 +31,8 @@
         <div class='profile_photo'><%= review.user.first_name %>
           <%= image_tag review.user.profile_photo %></div>
         <% if authorized_to_edit?(review) %>
-          <%=link_to 'Edit', edit_review_path(review) %>
-          <%=link_to 'Delete', ruby_gem_review_path(review.ruby_gem, review), method: :delete, data: {:confirm => "Are you sure?"} %>
+          <%=button_to 'Edit', edit_review_path(review) %>
+          <%=button_to 'Delete', ruby_gem_review_path(review.ruby_gem, review), method: :delete, data: {:confirm => "Are you sure?"} %>
         <% end %>
       </li></br>
     <% end %>
