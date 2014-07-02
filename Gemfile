@@ -51,6 +51,7 @@ end
 
 gem 'kaminari'
 gem 'simple_form'
+gem 'rails_12factor'
 
 gem 'carrierwave'
 
