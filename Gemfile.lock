@@ -223,11 +223,8 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.0.0)
   devise
-<<<<<<< HEAD
   email_spec
-=======
   dotenv-rails
->>>>>>> master
   factory_girl_rails
   fog
   jbuilder (~> 2.0)
