@@ -28,8 +28,10 @@
         <h4>vote count</h4><%= review.vote_count %>
         <%= review.rating %> <%= review.body %>
 
-        <div class='profile_photo'><%= review.user.first_name %>
-          <%= image_tag review.user.profile_photo %></div>
+        <%= review.user.first_name %>
+        <div class='profile_photo_container img-circle'>
+          <%= image_tag review.user.profile_photo, class: "profile_photo img-circle" %>
+        </div>
         <% if authorized_to_edit?(review) %>
           <%=button_to 'Edit', edit_review_path(review) %>
           <%=button_to 'Delete', ruby_gem_review_path(review.ruby_gem, review), method: :delete, data: {:confirm => "Are you sure?"} %>

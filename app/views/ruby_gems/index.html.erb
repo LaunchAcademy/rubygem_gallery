@@ -7,10 +7,10 @@
   </p>
 <% end %>
 
-<ul>
+<ul class="list-group">
   <%= paginate @ruby_gems %>
   <% @ruby_gems.each do |rubygem| %>
-    <li><%= link_to rubygem.name, ruby_gem_path(rubygem) %></li>
+    <li class="list-group-item"><%= link_to rubygem.name, ruby_gem_path(rubygem) %></li>
   <% end %>
 </ul>
 
