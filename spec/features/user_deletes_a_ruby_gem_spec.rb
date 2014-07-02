@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "user deletes a ruby gem", %Q{
+feature 'user deletes a ruby gem', %Q{
   As a user
   I want to delete a ruby gem that I created
   So I don't see again.
@@ -23,7 +23,7 @@ feature "user deletes a ruby gem", %Q{
       ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
       visit ruby_gem_path(ruby_gem)
 
-      click_on "Delete"
+      click_on 'Delete'
 
       expect(page).to have_content 'Deleted'
     end

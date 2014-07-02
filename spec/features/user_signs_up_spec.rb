@@ -52,4 +52,22 @@ feature 'sign up', %Q{
     expect(page).to have_content("can't be blank")
   end
 
+  scenario 'user signs up with profile photo' do
+    user = FactoryGirl.build(:user)
+
+    visit '/'
+    click_link 'Sign Up'
+    fill_in 'First Name', with: user.first_name
+    fill_in 'Last Name', with: user.last_name
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    fill_in 'Password Confirmation', with: user.password
+    attach_file 'Profile Photo', File.join(Rails.root, '/spec/support/example.jpg')
+    click_button 'Sign Up'
+
+    expect(page).to have_content('Sign Out')
+    expect(page).to_not have_content('Sign Up')
+
+  end
+
 end

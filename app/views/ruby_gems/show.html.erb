@@ -1,11 +1,12 @@
 <h1><%= @ruby_gem.name %></h1>
-<%= @ruby_gem.description %>
-
+<%= @ruby_gem.description %><br/>
+<%= @ruby_gem.user.first_name %>
+<div class='profile_photo'><%= image_tag @ruby_gem.user.profile_photo %></div>
 
 <% if signed_in? %>
   <% if current_user == @ruby_gem.user || current_user.role == 'admin' %>
     <%= link_to "Edit", edit_ruby_gem_path(@ruby_gem) %>
-    <%= link_to "Delete", ruby_gem_path(@ruby_gem), method: :delete %>
+    <%= link_to "Delete", ruby_gem_path(@ruby_gem), method: :delete, data: {:confirm => "Are you sure?"} %>
   <% end %>
 <% end %>
 
@@ -26,9 +27,12 @@
         <% end %>
         <h4>vote count</h4><%= review.vote_count %>
         <%= review.rating %> <%= review.body %>
+
+        <div class='profile_photo'><%= review.user.first_name %>
+          <%= image_tag review.user.profile_photo %></div>
         <% if authorized_to_edit?(review) %>
           <%=link_to 'Edit', edit_review_path(review) %>
-          <%=link_to 'Delete', review, method: :delete %>
+          <%=link_to 'Delete', review, method: :delete, data: {:confirm => "Are you sure?"} %>
         <% end %>
       </li></br>
     <% end %>

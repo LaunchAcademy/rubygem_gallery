@@ -47,6 +47,12 @@ group :development, :test do
   gem 'valid_attribute'
   gem 'launchy'
   gem 'email_spec'
+  gem 'dotenv-rails'
 end
 
+gem 'kaminari'
 gem 'simple_form'
+
+gem 'carrierwave'
+
+gem 'fog'
