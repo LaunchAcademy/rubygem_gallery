@@ -10,6 +10,9 @@ class ReviewsController < ApplicationController
 
     if signed_in?
       if @review.save
+        # make email in method contained in member_mailer model
+        member_mailer = MemberMailer.review_notification(@ruby_gem).deliver
+
         flash[:notice] = "Success"
         redirect_to ruby_gem_path(@ruby_gem)
       else

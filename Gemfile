@@ -46,6 +46,7 @@ group :development, :test do
   gem 'capybara'
   gem 'valid_attribute'
   gem 'launchy'
+  gem 'email_spec'
   gem 'dotenv-rails'
 end
 
