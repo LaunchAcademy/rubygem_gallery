@@ -48,6 +48,7 @@ class ReviewsController < ApplicationController
     authorize_to_edit
     if @review.destroy
       flash[:notice] = "Deleted"
+      binding.pry
       redirect_to ruby_gem_path(@ruby_gem)
     else
       flash[:notice] = "Error"
