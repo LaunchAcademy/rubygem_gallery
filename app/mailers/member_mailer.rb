@@ -4,7 +4,6 @@ class MemberMailer < ActionMailer::Base
 
   def review_notification(ruby_gem)
     @ruby_gem = ruby_gem
-
-    mail(to: 'user@example.com', subject: 'New Review')
+    mail(to: @ruby_gem.user.email, subject: 'New Review')
   end
 end
