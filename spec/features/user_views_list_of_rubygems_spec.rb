@@ -18,7 +18,5 @@ feature "user views list of ruby gems", %Q{
     ruby_gems.each do |ruby_gem|
       expect(page).to have_content(ruby_gem.name)
     end
-
   end
-
 end

@@ -32,7 +32,7 @@ feature 'user edits own review', %Q{
       review = FactoryGirl.create(:review, ruby_gem: ruby_gem)
       visit ruby_gem_path(ruby_gem)
 
-      expect(page).to_not have_content 'Delete'
+      expect(page).to_not have_content 'Edit'
     end
   end
 
@@ -41,6 +41,6 @@ feature 'user edits own review', %Q{
     review = FactoryGirl.create(:review, ruby_gem: ruby_gem)
     visit ruby_gem_path(ruby_gem)
 
-    expect(page).to_not have_content 'Delete'
+    expect(page).to_not have_content 'Edit'
   end
 end
