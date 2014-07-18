@@ -62,7 +62,6 @@ class RubyGemsController < ApplicationController
   end
 
   private
-
   def ruby_gem_params
     params.require(:ruby_gem).permit(:name, :description)
   end

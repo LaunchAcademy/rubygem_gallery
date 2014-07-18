@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature 'user deletes a ruby gem', %Q{
+feature 'user deletes a ruby gem', %Q(
   As a user
   I want to delete a ruby gem that I created
   So I don't see again.
-} do
+) do
 
 # I need to be the author of this gem
 # I need to click a link to delete this ruby gem
@@ -25,7 +25,7 @@ feature 'user deletes a ruby gem', %Q{
 
       click_on 'Delete'
 
-      expect(page).to have_content 'Deleted'
+      expect(page).to have_content('Deleted')
     end
 
     scenario 'unauthorized user cannot delete ruby gem' do

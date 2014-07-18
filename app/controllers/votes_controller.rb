@@ -25,7 +25,6 @@ class VotesController < ApplicationController
   end
 
   private
-
   def vote_params
     params.require(:vote).permit(:direction).merge(user: current_user)
   end

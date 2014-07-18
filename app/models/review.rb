@@ -1,6 +1,7 @@
 class Review < ActiveRecord::Base
   validates :rating, presence: true, inclusion: { within: 1..5 }
   validates :ruby_gem, presence: true
+  validates :user, presence: true
 
   belongs_to :ruby_gem
   belongs_to :user

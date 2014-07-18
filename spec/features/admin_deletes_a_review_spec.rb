@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature "admin deletes a review", %Q{
+feature "admin deletes a review", %Q(
   As an admin
   I want to delete a review
   So I can get rid of inappropriate reviews
-} do
+) do
 
 # I need to be an admin
 # I need to be able to delete any review
@@ -25,7 +25,7 @@ feature "admin deletes a review", %Q{
       click_on 'Delete'
     end
 
-    expect(page).to have_content 'Deleted'
+    expect(page).to have_content('Deleted')
   end
 
   scenario 'authenticated non-admin cannot delete review' do

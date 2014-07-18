@@ -1,21 +1,20 @@
 require 'rails_helper'
 
-feature 'user edits own review', %Q{
+feature 'user edits own review', %Q(
   As a user
   I want to edit a review I wrote
   So that I can make changes to it.
-} do
-
+) do
 
   context 'authenticated user' do
     before :each do
       @user = FactoryGirl.create(:user)
       login(@user)
+      @ruby_gem = FactoryGirl.create(:ruby_gem)
     end
 
     scenario 'authorized user edits own review' do
-      ruby_gem = FactoryGirl.create(:ruby_gem)
-      review = FactoryGirl.create(:review, ruby_gem: ruby_gem, user: @user)
+      review = FactoryGirl.create(:review, ruby_gem: @ruby_gem, user: @user)
       visit edit_review_path(review)
 
       choose('review_rating_3')
@@ -28,11 +27,10 @@ feature 'user edits own review', %Q{
     end
 
     scenario 'unauthorized user cannot edit someone elses review' do
-      ruby_gem = FactoryGirl.create(:ruby_gem)
-      review = FactoryGirl.create(:review, ruby_gem: ruby_gem)
-      visit ruby_gem_path(ruby_gem)
+      review = FactoryGirl.create(:review, ruby_gem: @ruby_gem)
+      visit ruby_gem_path(@ruby_gem)
 
-      expect(page).to_not have_content 'Delete'
+      expect(page).to_not have_content('Delete')
     end
   end
 
@@ -41,6 +39,6 @@ feature 'user edits own review', %Q{
     review = FactoryGirl.create(:review, ruby_gem: ruby_gem)
     visit ruby_gem_path(ruby_gem)
 
-    expect(page).to_not have_content 'Delete'
+    expect(page).to_not have_content('Delete')
   end
 end

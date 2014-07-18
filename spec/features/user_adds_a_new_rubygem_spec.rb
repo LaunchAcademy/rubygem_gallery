@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature "user adds a new ruby gem", %Q{
+feature "user adds a new ruby gem", %Q(
   As a user
   I want to add a verified gem
   So it can be rated and commented on
-} do
+) do
 
 # TODO I need to be signed in to do this.
 # I must provide gem name and description.
@@ -30,7 +30,6 @@ feature "user adds a new ruby gem", %Q{
     end
 
     scenario 'user enters incomplete ruby gem info' do
-
       click_on "Create Ruby gem"
 
       expect(page).to_not have_content('Success')

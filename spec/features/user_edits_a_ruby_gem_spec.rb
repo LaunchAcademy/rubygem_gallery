@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature "user can edit their ruby gem", %Q{
+feature "user can edit their ruby gem", %Q(
   As a user
   I want to be able to edit the ruby gem I created
   So I can fix it.
-} do
+) do
 
 # TODO integrate current user with ruby gem to edit only their ruby gem
 # TODO I must be signed in to do this
@@ -18,30 +18,31 @@ feature "user can edit their ruby gem", %Q{
       login(@user)
     end
 
-    scenario 'user edits own ruby gem' do
-      ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
+    context 'authorized user' do
+      scenario 'user edits own ruby gem' do
+        ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
+        visit edit_ruby_gem_path(ruby_gem.id)
 
-      visit edit_ruby_gem_path(ruby_gem.id)
+        fill_in 'Name', with: ruby_gem.name
+        fill_in 'Description', with: ruby_gem.description
+        click_on "Update Ruby gem"
 
-      fill_in 'Name', with: ruby_gem.name
-      fill_in 'Description', with: ruby_gem.description
-      click_on "Update Ruby gem"
+        expect(page).to have_content('Success')
+        expect(page).to have_content ruby_gem.name
+        expect(page).to have_content ruby_gem.description
+      end
 
-      expect(page).to have_content('Success')
-      expect(page).to have_content ruby_gem.name
-      expect(page).to have_content ruby_gem.description
-    end
+      scenario 'authorized user sees error message if form incomplete' do
+        ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
+        visit edit_ruby_gem_path(ruby_gem.id)
 
-    scenario 'authorized user sees error message if form incomplete' do
-      ruby_gem = FactoryGirl.create(:ruby_gem, user: @user)
+        fill_in 'Name', with: ''
+        fill_in 'Description', with: ''
+        click_on "Update Ruby gem"    #change this to Ruby Gem
 
-      visit edit_ruby_gem_path(ruby_gem.id)
-      fill_in 'Name', with: ''
-      fill_in 'Description', with: ''
-      click_on "Update Ruby gem"    #change this to Ruby Gem
-
-      expect(page).to_not have_content('Success')
-      expect(page).to have_content("can't be blank")
+        expect(page).to_not have_content('Success')
+        expect(page).to have_content("can't be blank")
+      end
     end
 
     scenario 'unauthorized user cannot edit ruby gem' do
