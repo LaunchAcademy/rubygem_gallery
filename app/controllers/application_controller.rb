@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   helper_method :authorized_to_edit?
 
   protected
-
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << [:first_name, :last_name, :profile_photo]
   end

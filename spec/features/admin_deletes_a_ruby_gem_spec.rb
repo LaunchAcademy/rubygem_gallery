@@ -22,7 +22,7 @@ feature 'admin deletes a ruby gem', %Q(
 
     click_on 'Delete'
 
-    expect(page).to have_content 'Deleted'
+    expect(page).to have_content('Deleted')
   end
 
   scenario 'authenticated non-admin cannot delete ruby gem' do

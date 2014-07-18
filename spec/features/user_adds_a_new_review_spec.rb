@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature "user adds a new review", %Q{
+feature "user adds a new review", %Q(
     As a user
     I want to review a gem
     So people know what I think about it
-} do
+) do
 
 # I need to be signed in
 # I need to see the form on the ruby gem show page
@@ -37,7 +37,7 @@ feature "user adds a new review", %Q{
       click_on "Create Review"
 
       expect(page).to_not have_content('Success')
-      expect(page).to have_content("There was an error")
+      expect(page).to have_content('There was an error')
     end
   end
 
